@@ -25,6 +25,31 @@ def append_list_as_row(file_name, list_of_elem):
         # Add contents of list as last row in the csv file
         csv_writer.writerow(list_of_elem)
 
+def check_values(card_string_1, card_string_2):
+    c1 = card_string_1
+    c2 = card_string_2
+    if (c1 != c2):
+        print('sorry please swipe again -> I didn\'t quite get that.....')
+    else:
+        print(f"successfully extracted card number: {c1}")
+        card_list = []
+        card_list.append(c1)
+        append_list_as_row(todays_file,card_list)
+
+def parse_gc(gift_card_string):
+    GC = gift_card_string
+    card_split = GC.split('~')
+    card_1_r= card_split[1].split('^')
+    card_1 = card_1_r[0][1:]
+    card_2 = card_split[2].split('=')[0]
+
+    check_values(card_1 , card_2)
+    
+    return 
+    
+
+
+
 todays_file = f'{short_date}_gift_card_numbers.csv'
 # todays_file = f'gift_card_numbers.csv'
 
@@ -47,18 +72,8 @@ if __name__ == "__main__":
             if (GC == "exit"):
                 sys.exit(0)
             else:
-                print(GC)
-                card_split = GC.split('~')
-                card_1_r= card_split[1].split('^')
-                card_1 = card_1_r[0][1:]
-                card_2 = card_split[2].split('=')[0]
-                card_list = []
-                card_list.append(card_1)
+                parse_gc(GC)
 
-                if (card_1 != card_2):
-                    print('sorry please swipe again -> I didn\'t quite get that.....')
-                else:
-                    print(f"successfully extracted card number: {card_1}")
-                    append_list_as_row(todays_file,card_list)
+                
                     
 

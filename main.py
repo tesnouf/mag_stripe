@@ -37,6 +37,7 @@ def check_values(card_string_1, card_string_2, employee_id):
         print('sorry please swipe again -> I didn\'t quite get that.....')
     else:
         print(f"successfully extracted card number: {c1}")
+        c1 = '`'+ c1 ## numbers are too big for excel add ` infront to force conversion to text just in case
         card_list = [employee_id]
         card_list.append(c1)
         append_list_as_row(todays_file,card_list)
